@@ -1,0 +1,26 @@
+{
+  "name": "@crisis-map/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "tsc --noEmit",
+    "dev": "node --eval \"console.log('@crisis-map/shared')\""
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.8",
+    "@shared/tsconfig": "workspace:*",
+    "@types/node": "22.19.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  }
+}
