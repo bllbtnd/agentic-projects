@@ -1,0 +1,27 @@
+{
+  "name": "@shared/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "exports": {
+    "./base.json": "./base.json",
+    "./node.json": "./node.json",
+    "./react.json": "./react.json"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "tsc --noEmit",
+    "dev": "node --eval \"console.log('@shared/tsconfig')\""
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.8",
+    "@types/node": "22.19.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  }
+}
