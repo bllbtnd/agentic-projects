@@ -1,0 +1,45 @@
+name: Feature
+description: Feature or task for the work queue
+title: "[Feature]: "
+labels: ["type:feature"]
+body:
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Which product this work is for
+      options:
+        - crisis-map
+        - repo
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: ticket_id
+    attributes:
+      label: Ticket id
+      description: e.g. CM-05
+      placeholder: CM-05
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What this work should achieve
+    validations:
+      required: true
+  - type: textarea
+    id: user_value
+    attributes:
+      label: User value
+      description: Who benefits, and how
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance criteria
+      description: Testable checks that mean this is done
+    validations:
+      required: true

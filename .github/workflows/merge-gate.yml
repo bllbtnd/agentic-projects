@@ -1,0 +1,55 @@
+name: merge-gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+# issues: write is required to clear approval labels after a new commit.
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  merge-gate:
+    name: merge-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear approval labels on new commits
+        if: github.event.action == 'synchronize'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = ["reviewer-approved", "qa-passed", "architect-approved"];
+            for (const name of labels) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.pull_request.number,
+                  name,
+                });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+              }
+            }
+
+      - name: Require reviewer, QA, and architect labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+            const names = new Set(data.map((label) => label.name));
+            const required = ["reviewer-approved", "qa-passed", "architect-approved"];
+            const missing = required.filter((name) => !names.has(name));
+            const blocked = names.has("changes-requested");
+            if (missing.length > 0 || blocked) {
+              core.setFailed(
+                `merge-gate: missing [${missing.join(", ")}], changes-requested=${blocked}. ` +
+                  "Record each pass as a COMMENT review plus the matching label. " +
+                  "The Architect squash-merges. There is no per-merge Botond approval.",
+              );
+            }

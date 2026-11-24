@@ -1,0 +1,36 @@
+name: Report an error
+description: Public report of a wrong item on the map
+title: "[Correction]: "
+labels: ["correction", "project:crisis-map"]
+body:
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Which map this correction is about
+      options:
+        - crisis-map
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: item_link
+    attributes:
+      label: Item link
+      description: URL of the map item or permalink
+    validations:
+      required: true
+  - type: textarea
+    id: whats_wrong
+    attributes:
+      label: What's wrong
+      description: What the map shows, and what is incorrect
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Optional link that supports the correction
+    validations:
+      required: false

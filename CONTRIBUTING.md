@@ -12,13 +12,24 @@ The Engineer (one full-stack role; backend and frontend are not separate
 seats) opens the PR and fixes review notes. The Reviewer reviews. QA tests
 and passes. The Architect gives final approval and squash-merges. The Data
 Analyst works on data quality and source-ingest validation, including
-corrections from public reports, and uses the same PR path.
+corrections from public reports, and uses the same PR path. SRE owns
+operations files under `projects/<product>/ops/`.
 
 Every bot authenticates as GitHub user @bllbtnd. GitHub will not accept an
 approving review on your own PR, so a required approving-review count of 1
 would lock the repo. Approvals are labels plus a COMMENT review, not an
 APPROVE review. Questions for Botond go through Boss. Botond does not OK each
 merge.
+
+## Work queue
+
+GitHub issues are the team's work queue.
+
+- The PM files features and tasks with the Feature form (`.github/ISSUE_TEMPLATE/feature.yml`). Those issues get `type:feature`.
+- QA files bugs with the Bug form (`.github/ISSUE_TEMPLATE/bug.yml`). Those issues get `type:bug`.
+- When the issue is ready to be picked up, add `status:ready`.
+- The owner picks up issues marked `status:ready`. Set `owner:engineer`, `owner:data-analyst`, or `owner:sre`, then move the label to `status:in-progress`. Use `status:blocked` when it cannot move.
+- Public reports of wrong map data use "Report an error" (`correction`). The Data Analyst triages those. A fix is a normal PR.
 
 ## Workflow
 
@@ -82,19 +93,34 @@ pnpm build
 pnpm dev
 ```
 
-`pnpm crisis-map:dev`, the gitleaks hook, and the owner script for labels and
-branch protection are follow-ups. This skeleton only has the workspace and CI.
+`pnpm crisis-map:dev` and the gitleaks hook are follow-ups. Labels and branch
+protection are in `scripts/apply-branch-protection.sh` for the owner to run.
+That script has not been applied.
 
 ## Labels
 
-| Label                | Meaning                                 |
-| -------------------- | --------------------------------------- |
-| `reviewer-approved`  | Reviewer finished and accepted          |
-| `qa-passed`          | QA tested and passed                    |
-| `architect-approved` | Architect accepted and may squash-merge |
-| `changes-requested`  | Review or QA blocked the PR             |
-| `project:crisis-map` | Work belongs to Crisis Map              |
-| `correction`         | Public data-error report                |
+| Label | Meaning |
+| --- | --- |
+| `type:feature` | PM feature or task |
+| `type:bug` | QA bug |
+| `type:chore` | Chore |
+| `correction` | Public report of wrong map data |
+| `project:crisis-map` | Crisis Map |
+| `owner:engineer` | Engineer owns the issue |
+| `owner:data-analyst` | Data Analyst owns the issue |
+| `owner:sre` | SRE owns the issue |
+| `status:ready` | Ready for an owner to pick up |
+| `status:in-progress` | An owner is working on it |
+| `status:blocked` | Cannot move |
+| `severity:S1` | Highest bug severity |
+| `severity:S2` | High bug severity |
+| `severity:S3` | Normal bug severity |
+| `severity:S4` | Low bug severity |
+| `reviewer-approved` | Reviewer accepted the PR |
+| `qa-passed` | QA passed the PR |
+| `architect-approved` | Architect accepted the PR and may squash-merge |
+| `changes-requested` | Review or QA blocked the PR |
 
-The owner script that creates these labels is a follow-up. They are not on
-the repo yet.
+These labels are not on the repo yet. The agent token cannot create them.
+The owner runs `scripts/apply-branch-protection.sh`, which also creates the
+labels. That script was not run.

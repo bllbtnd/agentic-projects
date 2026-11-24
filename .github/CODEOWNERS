@@ -1,0 +1,8 @@
+# All team bots share the @bllbtnd account (Engineer, Reviewer, QA,
+# Architect, Data Analyst, and SRE). GitHub cannot tell them apart, and a
+# required approving review would lock every PR. See CONTRIBUTING.md.
+* @bllbtnd
+
+# Per-project lines, still the same account until the team has more logins.
+# /projects/crisis-map/ @bllbtnd
+# /projects/<product>/ @bllbtnd

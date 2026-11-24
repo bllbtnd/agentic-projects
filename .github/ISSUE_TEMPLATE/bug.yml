@@ -1,0 +1,60 @@
+name: Bug
+description: Defect filed by QA
+title: "[Bug]: "
+labels: ["type:bug"]
+body:
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Which product this bug is in
+      options:
+        - crisis-map
+        - repo
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: S1 is the most severe
+      options:
+        - S1
+        - S2
+        - S3
+        - S4
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment / URL
+      description: Where you saw it, including a URL when there is one
+    validations:
+      required: true
+  - type: input
+    id: ac_reference
+    attributes:
+      label: AC reference
+      description: Acceptance criterion this breaks, if any (for example AC4)
+    validations:
+      required: false
