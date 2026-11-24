@@ -93,9 +93,7 @@ pnpm build
 pnpm dev
 ```
 
-`pnpm crisis-map:dev` and the gitleaks hook are follow-ups. Labels and branch
-protection are in `scripts/apply-branch-protection.sh` for the owner to run.
-That script has not been applied.
+`pnpm crisis-map:dev` and the gitleaks hook are follow-ups.
 
 ## Labels
 
@@ -121,6 +119,12 @@ That script has not been applied.
 | `architect-approved` | Architect accepted the PR and may squash-merge |
 | `changes-requested` | Review or QA blocked the PR |
 
-These labels are not on the repo yet. The agent token cannot create them.
-The owner runs `scripts/apply-branch-protection.sh`, which also creates the
-labels. That script was not run.
+These labels are not on the repo yet. See [Owner setup](#owner-setup).
+
+## Owner setup
+
+One command, run by the repo owner (admin on `bllbtnd/agentic-projects`). It creates or updates every label and applies branch protection on `main`. It is safe to re-run. It does not protect `crisis-map-data`. It has not been run.
+
+```bash
+./scripts/apply-repo-setup.sh
+```

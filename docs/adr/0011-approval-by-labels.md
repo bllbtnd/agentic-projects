@@ -55,7 +55,7 @@ an owner picks up issues labeled `status:ready`.
 Branch protection, when the owner applies it, keeps
 `required_approving_review_count` at 0 and code-owner reviews off, and
 requires the `ci-ok` and `merge-gate` status checks. See
-`scripts/apply-branch-protection.sh`. The token that opened this PR could
+`scripts/apply-repo-setup.sh`. The token that opened this PR could
 not apply that protection or create labels.
 
 ## Consequences
